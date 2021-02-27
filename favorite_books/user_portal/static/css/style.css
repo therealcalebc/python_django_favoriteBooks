@@ -1,0 +1,29 @@
+html {
+	font-size: .7rem;
+}
+
+@media (min-width: 576px) {
+	html {
+		font-size: 1rem;
+	}
+}
+
+@media (min-width: 768px) {
+	html {
+		font-size: 1.3rem;
+	}
+}
+
+@media (min-width: 992px) {
+	html {
+		font-size: 1.6rem;
+	}
+}
+
+div ul li span.dojo-delete {
+	cursor: pointer;
+}
+
+div ul li span.ninja-delete {
+	cursor: pointer;
+}

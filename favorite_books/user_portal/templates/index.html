@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>{{ title }}</title>
+		{% load static %}
+		<!-- latest bootstrap css -->
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+		<!-- local/static stylesheets -->
+		<link rel="stylesheet" href="{% static 'css/style.css' %}">
+	</head>
+	<body>
+		<header class="container-fluid p-3 bg-info">
+				<h1 class="mb-4 display-6 text-center">Hello, please Login or Register</h1>
+		</header>
+		<main class="container">
+			<div class="row">
+				<div class="col m-4 p-4">
+					<h2 class="mb-3 text-center">Registration</h2>
+					{% if messages %}
+					<ul class="list-unstyled">
+						{% for message in messages %}
+						{% if message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}
+						<li class="mb-1 py-0 fs-6 alert {% if message.tags %}{{message.tags}}{% else %}alert-warning{% endif %}">{{ message }}</li>
+						{% endif %}
+						{% endfor %}
+					</ul>
+					{% endif %}
+					<form action="register" method="POST">
+						{% csrf_token %}
+						<div class="row mb-3">
+							<label for="firstNameInput" class="col form-label">First Name:</label>
+							<input type="text" class="col form-control form-control-sm" name="first_name" id="firstNameInput" placeholder="Jane" {% if repopnew.first_name %}value="{{ repopnew.first_name }}"{% endif %}>
+						</div>
+						<div class="row mb-3">
+							<label for="lastNameInput" class="col form-label">Last Name:</label>
+							<input type="text" class="col form-control form-control-sm" name="last_name" id="lastNameInput" placeholder="Doe" {% if repopnew.last_name %}value="{{ repopnew.last_name }}"{% endif %}>
+						</div>
+						<div class="row mb-3">
+							<label for="birthDateInput" class="col form-label">Birth Date:</label>
+							<input type="date" class="col form-control form-control-sm" name="birth_date" id="birthDateInput" {% if repopnew.birth_date %}value="{{ repopnew.birth_date }}"{% endif %} min="1900-01-01" max="{% now "Y-m-d" %}"/>
+						</div>
+						<div class="row mb-3">
+							<label for="emailAddrInput" class="col form-label">Email Address:</label>
+							<input type="email" class="col form-control form-control-sm" name="email_addr" id="emailAddrInput" placeholder="jane@doe.com" {% if repopnew.email_addr %}value="{{ repopnew.email_addr }}"{% endif %}>
+						</div>
+						<div class="row mb-3">
+							<label for="passwordInput" class="col form-label">Password:</label>
+							<input type="password" class="col form-control form-control-sm" name="password" id="passwordInput" placeholder="***********" {% if repopnew.password %}value="{{ repopnew.password }}"{% endif %}>
+						</div>
+						<div class="row mb-3">
+							<label for="pwConfirmInput" class="col form-label">Confirm PW:</label>
+							<input type="password" class="col form-control form-control-sm" name="pw_confirm" id="pwConfirmInput" placeholder="***********" {% if repopnew.pw_confirm %}value="{{ repopnew.pw_confirm }}"{% endif %}>
+						</div>
+						<div class="row button-group justify-content-center">
+							<button type="submit" class="col-4 mx-3 px-3 py-2 btn btn-primary">Register</button>
+						</div>
+					</form>
+				</div>
+				<div class="col m-4 p-4">
+					<h2 class="mb-3 text-center">Login</h2>
+					{% if messages %}
+					<ul class="list-unstyled">
+						{% for message in messages %}
+						{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+						<li class="mb-1 py-0 fs-6 alert {% if message.tags %}{{message.tags}}{% else %}alert-danger{% endif %}">{{ message }}</li>
+						{% endif %}
+						{% endfor %}
+					</ul>
+					{% endif %}
+					<form action="login" method="POST">
+						{% csrf_token %}
+						<div class="row mb-3">
+							<label for="emailAddrInput" class="col form-label">Email Address:</label>
+							<input type="email" class="col form-control form-control-sm" name="email_addr" id="emailAddrInput" placeholder="jane@doe.com" {% if repopnew.email_addr %}value="{{ repopnew.email_addr }}"{% endif %}>
+						</div>
+						<div class="row mb-3">
+							<label for="passwordInput" class="col form-label">Password:</label>
+							<input type="password" class="col form-control form-control-sm" name="password" id="passwordInput" placeholder="***********" {% if repopnew.password %}value="{{ repopnew.password }}"{% endif %}>
+						</div>
+						<div class="row button-group justify-content-center">
+							<button type="submit" class="col-4 mx-3 px-3 py-2 btn btn-primary">Log In</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</main>
+		<!-- latest bootstrap js bundle -->
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+		<!-- latest jquery core -->
+		<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+		<!-- local/static scripts -->
+		<script src="{% static 'js/script.js' %}"></script>
+	</body>
+</html>
