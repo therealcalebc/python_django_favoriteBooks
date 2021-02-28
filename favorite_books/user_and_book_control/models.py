@@ -63,7 +63,7 @@ class UserManager(models.Manager):
 
 class User(models.Model):
 	first_name = models.CharField(max_length=25)
-	first_name = models.CharField(max_length=50)
+	last_name = models.CharField(max_length=50)
 	birth_date = models.DateField()
 	email_addr = models.CharField(max_length=100, unique=True)
 	pw_hash = models.CharField(max_length=100)
