@@ -28,7 +28,7 @@
 						{% endfor %}
 					</ul>
 					{% endif %}
-					<form action="register" method="POST">
+					<form action="user/register" method="POST">
 						{% csrf_token %}
 						<div class="row mb-3">
 							<label for="firstNameInput" class="col form-label">First Name:</label>
@@ -70,7 +70,7 @@
 						{% endfor %}
 					</ul>
 					{% endif %}
-					<form action="login" method="POST">
+					<form action="user/login" method="POST">
 						{% csrf_token %}
 						<div class="row mb-3">
 							<label for="emailAddrInput" class="col form-label">Email Address:</label>
