@@ -12,14 +12,14 @@
 		<link rel="stylesheet" href="{% static 'css/style.css' %}">
 	</head>
 	<body>
-		<header class="container-fluid mb-4 p-3 bg-info">
+		<header class="container-fluid mb-2 p-3 bg-info">
 			<div class="row justify-content-between">
 				<div class="col-auto">
 					<!-- <h1 class="mb-2 pb-2 h4 text-center"><a href="/" class="text-reset text-decoration-none">{{ title }}</a></h1> -->
-					<h2 class="mb-4 display-5 text-light">Welcome {{user.first_name}}!</h2>
+					<h1 class="text-light">Welcome {{user.first_name}}!</h1>
 				</div>
 				<div class="col-auto">
-					<a class="mx-1 px-1 link-danger" href="/logout">Log Out</a>
+					<a class="mx-1 px-1 link-secondary" href="/user/logout">Log Out</a>
 				</div>
 			</div>
 		</header>
@@ -35,7 +35,7 @@
 					</div>
 					<h3 class="mx-3 my-3 display-6">Add a Favorite Book</h3>
 					<div class="mx-3">
-						<form action="user/addbook" method="POST">
+						<form action="/user/addbook" method="POST">
 							{% csrf_token %}
 							<div class="row mb-3">
 								<label for="titleInput" class="col form-label">Title: </label>
@@ -56,16 +56,16 @@
 					{% for book in books %}
 					<div class="mx-3 mb-3">
 						<p class="lead">
-							<a class="link-success" href="/books/{{ book.id }}">{{ book.title }}</a>
+							<a class="link-success" href="{{ book.get_absolute_url }}">{{ book.title }}</a>
 						</p>
 						<p class="lead">
-							(added by {{ book.uploaded_by.full_Name }})
+							(added by {{ book.uploaded_by.full_name }})
 						</p>
 						<p class="lead">
-							{% if book in user.liked_books %}
+							{% if book in user.liked_books.all %}
 							<span class="fst-italic">this is one of your favorites</span>
 							{% else %}
-							<a href="user/addtofavorites/{{ book.id }}">Add to Favorites</a>
+							<a href="/user/addtofavorites/{{ book.id }}">Add to Favorites</a>
 							{% endif %}
 						</p>
 					</div>

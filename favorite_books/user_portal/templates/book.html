@@ -12,14 +12,14 @@
 		<link rel="stylesheet" href="{% static 'css/style.css' %}">
 	</head>
 	<body>
-		<header class="container-fluid mb-4 p-3 bg-info">
+		<header class="container-fluid mb-2 p-3 bg-info">
 			<div class="row justify-content-between">
 				<div class="col-auto">
 					<!-- <h1 class="mb-2 pb-2 h4 text-center"><a href="/" class="text-reset text-decoration-none">{{ title }}</a></h1> -->
-					<h2 class="h1 mb-4 text-light">Welcome {{user.first_name}}!</h2>
+					<h1 class="text-light">Welcome {{user.first_name}}!</h1>
 				</div>
 				<div class="col-auto">
-					<a class="mx-1 px-1 link-danger" href="books">Home</a> | <a class="mx-1 px-1 link-danger" href="user/logout">Log Out</a>
+					<a class="mx-1 px-1 link-primary" href="/books">Home</a> | <a class="mx-1 px-1 link-secondary" href="/user/logout">Log Out</a>
 				</div>
 			</div>
 		</header>
@@ -35,7 +35,7 @@
 					</div>
 					<h3 class="mx-3 my-3 display-6" hidden>Edit info for {{ book.title }}</h3>
 					<div class="mx-3">
-						<form action="user/addbook" method="POST">
+						<form action="/user/updatebook/{{ book.id }}" method="POST">
 							{% csrf_token %}
 							<div class="row mb-3">
 								<label for="titleInput" class="col form-label" hidden>Title: </label>
@@ -51,8 +51,8 @@
 								<textarea class="col form-control form-control-sm" name="description" id="descriptionInput" cols="15" rows="10">{{ book.description }}</textarea>
 							</div>
 							<div class="row button-group justify-content-center">
-								<button type="submit" class="col-4 mx-3 px-3 py-2 btn btn-primary">Add</button>
-								<a href="user/deletebook/{{ book.id }}" type="button" class="col-4 mx-3 px-3 py-2 btn btn-primary">Add</a>
+								<button type="submit" class="col-4 mx-3 px-3 py-2 btn btn-info">Update</button>
+								<a href="/user/deletebook/{{ book.id }}" type="button" class="col-4 mx-3 px-3 py-2 btn btn-danger">Remove</a>
 							</div>
 						</form>
 					</div>
@@ -60,15 +60,15 @@
 				<div class="col-7 p-4">
 					<h3 class="mx-3 my-3 display-6">Users Who Like This Book</h3>
 					<ul class="mx-3 mb-3">
-						{% for u in book.users_who_liked %}
-						<li class="lead">{{ u.full_Name }}</li>
+						{% for u in book.users_who_liked.all %}
+						<li class="lead">{{ u.full_name }}</li>
 						{% endfor %}
 					</ul>
 					<p class="mx-3 mb-3 lead">
-						{% if book in user.liked_books %}
-						<a href="user/removefromfavorites/{{ book.id }}">Remove from Favorites</a>
+						{% if book in user.liked_books.all %}
+						<a href="/user/removefromfavorites/{{ book.id }}">Remove from Favorites</a>
 						{% else %}
-						<a href="user/addtofavorites/{{ book.id }}">Add to Favorites</a>
+						<a href="/user/addtofavorites/{{ book.id }}">Add to Favorites</a>
 						{% endif %}
 					</p>
 				</div>
